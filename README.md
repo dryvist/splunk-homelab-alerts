@@ -127,6 +127,14 @@ python3 bin/zammad.py --selftest
 Covers article construction, correlation-key override, query-literal quoting,
 and the missing-key error path. No framework, no network.
 
+```sh
+python3 tests/test_hindsight_bank_dr_alerts.py
+```
+
+Guards the four hand-written `hindsight_*` detector stanzas: each one's
+`search` line still carries its index/sourcetype/event/result/threshold/
+zero-row-guard phrases, and each stays `disabled = 1` until promoted.
+
 ## Contributing
 
 Conventional-commit subjects. Keep the handler thin — logic that is not part of
