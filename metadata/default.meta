@@ -1,0 +1,12 @@
+[]
+access = read : [ * ], write : [ admin ]
+
+# The action is defined here but enabled from another app's savedsearches.conf
+# [default] (ansible-splunk's homelab_alerts). Cross-app use needs system scope
+# -- without these three exports `action.zammad = 1` over there resolves to
+# nothing and the alert fires with no incident.
+[alert_actions/zammad]
+export = system
+
+[alerts]
+export = system

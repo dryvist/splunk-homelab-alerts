@@ -1,0 +1,48 @@
+<form class="form-horizontal form-complex">
+    <div class="control-group">
+        <label class="control-label" for="zammad_url">Zammad API base URL</label>
+        <div class="controls">
+            <input type="text" name="action.zammad.param.url" id="zammad_url" />
+            <span class="help-block">
+                API base including /api/v1. Usually set once in the app's
+                savedsearches.conf [default] rather than per search.
+            </span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="zammad_group">Group</label>
+        <div class="controls">
+            <input type="text" name="action.zammad.param.group" id="zammad_group" />
+            <span class="help-block">Zammad group that owns the incident.</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="zammad_priority">Priority</label>
+        <div class="controls">
+            <input type="text" name="action.zammad.param.priority" id="zammad_priority" />
+            <span class="help-block">
+                One of the configured priorities, e.g. "2 normal" or "4 critical".
+                Splunk's alert.severity is not in the alert payload, so priority
+                is set here rather than derived from it.
+            </span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="zammad_state">State</label>
+        <div class="controls">
+            <input type="text" name="action.zammad.param.state" id="zammad_state" />
+            <span class="help-block">Initial state for a newly opened incident.</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="zammad_correlation_key">Correlation key</label>
+        <div class="controls">
+            <input type="text" name="action.zammad.param.correlation_key" id="zammad_correlation_key" />
+            <span class="help-block">
+                Ticket title and dedup key. Defaults to $name$, the saved-search
+                name, so a repeatedly firing detector appends to one open ticket.
+                Use $name$ - $result.host$ to open one ticket per host instead.
+            </span>
+        </div>
+    </div>
+</form>
