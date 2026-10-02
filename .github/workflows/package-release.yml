@@ -1,0 +1,31 @@
+# Packages this Splunk app as splunk-homelab-alerts.tar on every published
+# release, so ansible-splunk's addons.yml github_repo entry (once it can
+# reach a private repo — see the ansible-splunk registry PR) has a fixed
+# asset name to download regardless of tag.
+
+name: Package Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Tar the app directory
+        run: |
+          tar --exclude='.git' --exclude='.github' \
+            -cf splunk-homelab-alerts.tar \
+            --transform 's,^\.,splunk-homelab-alerts,' .
+
+      - name: Upload to release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: ${{ github.event.release.tag_name }}
+        run: |
+          gh release upload "${TAG_NAME}" splunk-homelab-alerts.tar
