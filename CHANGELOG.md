@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.3.0...v0.4.0) (2026-10-03)
+
+
+### Features
+
+* **alerts:** count redaction-pattern matches in agent transcript indexes ([08a9068](https://github.com/dryvist/splunk-homelab-alerts/commit/08a9068a30016c007392f1b209220f73983c8053))
+
 ## [0.3.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.2.0...v0.3.0) (2026-10-03)
 
 
