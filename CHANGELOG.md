@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.4.0...v0.5.0) (2026-10-03)
+
+
+### Features
+
+* add four disabled audit and dead-man detectors ([c632a07](https://github.com/dryvist/splunk-homelab-alerts/commit/c632a0786f7c148e6d18b854f23d93393db6f570))
+
 ## [0.4.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.3.0...v0.4.0) (2026-10-03)
 
 
