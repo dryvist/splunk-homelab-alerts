@@ -1,0 +1,40 @@
+# CI Gate — thin wrapper over the org reusable gate.
+#
+# This repo has no Terraform/Ansible/Nix content, so the only conditional
+# check is `python_security` over `bin/zammad.py`. `markdown_lint` and
+# `file_size` stay on the shared default.
+
+name: CI Gate
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  gate:
+    name: Merge Gate
+    permissions:
+      contents: read
+      pull-requests: read
+      # The org gate's queue watchdog cancels stuck sibling jobs via the
+      # Actions API; a called workflow can never exceed the caller's grant, so
+      # actions: write must be granted here or the run fails at graph
+      # validation (startup_failure).
+      actions: write
+    uses: dryvist/.github/.github/workflows/_ci-gate.yml@main
+    with:
+      python_security: true
+      filters: |
+        markdown:
+          - '**.md'
+          - '.markdownlint*'
+        python:
+          - 'bin/**.py'
