@@ -54,6 +54,12 @@ Detectors live in `ansible-splunk`'s `homelab_alerts` app today. They migrate
 here one at a time; each arrives `disabled = 1` and is enabled in its own
 reviewed change.
 
+The `llm_token_usage_by_tier` saved search is an informational report. It groups
+daily input, output, and cached-input token totals by registry tier, billing
+class, model, and provider. It overrides the app defaults with scheduling and
+the Zammad action disabled, so it can be opened manually without dispatching an
+alert.
+
 ## The `zammad` alert action
 
 `bin/zammad.py` opens a Zammad incident, or appends an article to the open one
@@ -95,7 +101,7 @@ The handler speaks three Zammad REST calls, all under `/api/v1`:
 
 | Call | Purpose |
 | --- | --- |
-| `GET /tickets/search?query=...` | find the open incident for this correlation key |
+| `GET /tickets/search?query=...` | find the open ticket |
 | `POST /tickets` | open a new incident when none matches |
 | `PUT /tickets/{id}` | append an article to the matching open incident |
 
