@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.5.0...v0.6.0) (2026-10-05)
+
+
+### Features
+
+* package the silence detectors and two burst/by-host detectors, disabled ([00186a8](https://github.com/dryvist/splunk-homelab-alerts/commit/00186a8d7beb895bf71d9257a90ddae33d7a48b1))
+
 ## [0.5.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.4.0...v0.5.0) (2026-10-03)
 
 
