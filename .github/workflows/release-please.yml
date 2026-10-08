@@ -47,5 +47,7 @@ jobs:
       - name: Publish the draft release
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          # No checkout in this job, so gh cannot infer the repo from a git remote.
+          GH_REPO: ${{ github.repository }}
           TAG_NAME: ${{ needs.release-please.outputs.tag_name }}
         run: gh release edit "${TAG_NAME}" --draft=false
