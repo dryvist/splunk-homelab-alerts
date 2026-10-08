@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.2](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.7.1...v0.7.2) (2026-10-08)
+
+
+### Bug Fixes
+
+* **ci:** set the repository for the draft publish step ([#16](https://github.com/dryvist/splunk-homelab-alerts/issues/16)) ([f345900](https://github.com/dryvist/splunk-homelab-alerts/commit/f345900c474d699f98389a182349dbc6482a8cf8))
+
 ## [0.7.1](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.7.0...v0.7.1) (2026-10-08)
 
 
