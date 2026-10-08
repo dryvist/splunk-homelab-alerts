@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.6.0...v0.7.0) (2026-10-08)
+
+
+### Features
+
+* **splunk:** add tiered token usage report ([ecc4759](https://github.com/dryvist/splunk-homelab-alerts/commit/ecc4759f8d93f3a186ed74a2c6d887b33bdad130))
+* **splunk:** add tiered token usage report ([c446abf](https://github.com/dryvist/splunk-homelab-alerts/commit/c446abf4ae7ee1c8c960a51d8d79312e055e8884))
+
 ## [0.6.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.5.0...v0.6.0) (2026-10-05)
 
 
