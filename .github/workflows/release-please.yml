@@ -20,6 +20,10 @@ jobs:
   package:
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created == 'true' }}
+    # A called workflow cannot exceed the caller's grant; the workflow default
+    # here is none, so the package job must grant what the reusable requests.
+    permissions:
+      contents: write
     uses: ./.github/workflows/package-release.yml
     with:
       tag: ${{ needs.release-please.outputs.tag_name }}
