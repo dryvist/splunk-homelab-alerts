@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.1](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.7.0...v0.7.1) (2026-10-08)
+
+
+### Bug Fixes
+
+* **ci:** grant the package job the permission its reusable call needs ([#14](https://github.com/dryvist/splunk-homelab-alerts/issues/14)) ([ffc3c22](https://github.com/dryvist/splunk-homelab-alerts/commit/ffc3c22014311fd6d14a6571795b311ccd210099))
+* **release:** attach the tarball to a draft before publishing ([#13](https://github.com/dryvist/splunk-homelab-alerts/issues/13)) ([33a51d2](https://github.com/dryvist/splunk-homelab-alerts/commit/33a51d2a4684e91b3c44918aab5960f510e4f3e4))
+
 ## [0.7.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.6.0...v0.7.0) (2026-10-08)
 
 
