@@ -6,6 +6,8 @@
       "version-file": "VERSION",
       "bump-minor-pre-major": true,
       "include-v-in-tag": true,
+      "draft": true,
+      "force-tag-creation": true,
       "extra-files": [
         {"type": "generic", "path": "default/app.conf"}
       ],
