@@ -12,6 +12,8 @@ jobs:
       contents: write
       pull-requests: write
     uses: dryvist/.github/.github/workflows/_release-please.yml@v1
+    with:
+      runner_label: ubuntu-24.04
     secrets:
       GH_ACTION_RELEASE_PLEASE_PRIVATE_KEY: ${{ secrets.GH_ACTION_RELEASE_PLEASE_PRIVATE_KEY }}
 
@@ -31,7 +33,8 @@ jobs:
   publish:
     needs: [release-please, package]
     if: ${{ needs.release-please.outputs.release_created == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
     permissions: {}
     steps:
       - name: Generate GitHub App token
