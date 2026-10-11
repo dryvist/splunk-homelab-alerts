@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.7.2...v0.8.0) (2026-10-11)
+
+
+### Features
+
+* add disabled Nautobot drift alert ([#27](https://github.com/dryvist/splunk-homelab-alerts/issues/27)) ([3c66221](https://github.com/dryvist/splunk-homelab-alerts/commit/3c662214081de774edefa2021bc149d87cf3185d))
+
 ## [0.7.2](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.7.1...v0.7.2) (2026-10-08)
 
 
