@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.8.0...v0.9.0) (2026-10-12)
+
+
+### Features
+
+* **alerts:** add shared error-terms macro and a Hermes errors detector ([008e341](https://github.com/dryvist/splunk-homelab-alerts/commit/008e341188b238717fe0fe143f59298bf5542ad3))
+* **alerts:** add shared error-terms macro and a Hermes errors detector ([#29](https://github.com/dryvist/splunk-homelab-alerts/issues/29)) ([a9b1d4b](https://github.com/dryvist/splunk-homelab-alerts/commit/a9b1d4bf1309334434dc6c1bf1251c93c66fc0ed))
+
 ## [0.8.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.7.2...v0.8.0) (2026-10-11)
 
 
