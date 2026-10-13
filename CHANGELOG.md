@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.9.0...v0.10.0) (2026-10-13)
+
+
+### Features
+
+* **alerts:** enable the hermes errors detector ([#31](https://github.com/dryvist/splunk-homelab-alerts/issues/31)) ([3dacbc1](https://github.com/dryvist/splunk-homelab-alerts/commit/3dacbc1bedc072bb5f89f42e353fd8954c10e95e))
+
 ## [0.9.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.8.0...v0.9.0) (2026-10-12)
 
 
