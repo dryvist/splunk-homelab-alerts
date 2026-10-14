@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.11.0...v0.12.0) (2026-10-14)
+
+
+### Features
+
+* **splunk:** alert on LiteLLM classifier failures ([#36](https://github.com/dryvist/splunk-homelab-alerts/issues/36)) ([936c81b](https://github.com/dryvist/splunk-homelab-alerts/commit/936c81bd37c12642b524879e0badeb4d2e1c59c4))
+
 ## [0.11.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.10.0...v0.11.0) (2026-10-14)
 
 
