@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.10.0...v0.11.0) (2026-10-14)
+
+
+### Features
+
+* **alerts:** add the Cribl output failure detector ([#34](https://github.com/dryvist/splunk-homelab-alerts/issues/34)) ([996430b](https://github.com/dryvist/splunk-homelab-alerts/commit/996430bce14d2615e24bf4a7fe42b0137ccb3009))
+
 ## [0.10.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.9.0...v0.10.0) (2026-10-13)
 
 
