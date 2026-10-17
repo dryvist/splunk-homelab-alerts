@@ -2,7 +2,7 @@
 # release named by `tag`, so ansible-splunk's addons.yml github_repo entry has a
 # fixed asset name to download regardless of tag.
 #
-# Called from release-please.yml. release-please creates the release as a draft,
+# Called from release.yml. release-please creates the release as a draft,
 # and this attaches the tarball before the caller publishes it: a published
 # GitHub release is immutable and accepts no new assets.
 
