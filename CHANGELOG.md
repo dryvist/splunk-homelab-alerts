@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.12.0...v0.13.0) (2026-10-17)
+
+
+### Features
+
+* **alerts:** page when all CI runners are offline ([#38](https://github.com/dryvist/splunk-homelab-alerts/issues/38)) ([a7fde13](https://github.com/dryvist/splunk-homelab-alerts/commit/a7fde13bf9061f84d00c4cf8b16ed40bb224bc86))
+
 ## [0.12.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.11.0...v0.12.0) (2026-10-14)
 
 
