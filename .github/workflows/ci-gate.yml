@@ -29,7 +29,7 @@ jobs:
       # actions: write must be granted here or the run fails at graph
       # validation (startup_failure).
       actions: write
-    uses: dryvist/.github/.github/workflows/_ci-gate.yml@3d5ae6608afc2e30760499415a29b8e1edfe0ad7 # v1.13.0
+    uses: JacobPEvans/.github/.github/workflows/_ci-gate.yml@v1
     with:
       profile: docs
       python_security: true
