@@ -1,8 +1,7 @@
 # CI Gate — thin wrapper over the org reusable gate.
 #
-# This repo has no Terraform/Ansible/Nix content, so the only conditional
-# check is `python_security` over `bin/zammad.py`. `markdown_lint` and
-# `file_size` stay on the shared default.
+# The shared gate checks repository formatting and security; this workflow also
+# runs the app's local contract tests.
 
 name: CI Gate
 
@@ -19,6 +18,19 @@ permissions:
   pull-requests: read
 
 jobs:
+  tests:
+    name: App Tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Test alert action and shared macros
+        run: |
+          python3 bin/zammad.py --selftest
+          python3 -m unittest discover -s tests -p 'test_*.py'
+
   gate:
     name: Merge Gate
     permissions:

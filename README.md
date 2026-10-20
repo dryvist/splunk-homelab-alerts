@@ -115,6 +115,7 @@ default/app.conf                     app registration
 default/alert_actions.conf           [zammad] action contract
 default/savedsearches.conf           [default] delivery block
 default/data/ui/alerts/zammad.html   alert-action setup UI
+default/macros.conf                  shared search macros
 bin/zammad.py                        the handler (stdlib only)
 metadata/default.meta                exports the action to system scope
 ```
@@ -124,14 +125,17 @@ from another app's `savedsearches.conf` (`ansible-splunk`'s `homelab_alerts`),
 and cross-app use requires `export = system` — without it `action.zammad = 1`
 over there resolves to nothing and the alert fires with no incident.
 
+The `homelab_os_log_indexes` macro is also exported to system scope for the
+OS silence detector in `ansible-splunk`.
+
 ## Tests
 
 ```sh
 python3 bin/zammad.py --selftest
+python3 -m unittest discover -s tests -p 'test_*.py'
 ```
 
-Covers article construction, correlation-key override, query-literal quoting,
-and the missing-key error path. No framework, no network.
+Covers the alert-action contract and the shared OS log index macro. No network.
 
 ## Contributing
 

@@ -10,3 +10,6 @@ export = system
 
 [alerts]
 export = system
+
+[macros/homelab_os_log_indexes]
+export = system
