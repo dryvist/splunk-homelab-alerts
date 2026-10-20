@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.14.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.13.0...v0.14.0) (2026-10-20)
+
+
+### Features
+
+* add shared OS log index macro ([#43](https://github.com/dryvist/splunk-homelab-alerts/issues/43)) ([f342cce](https://github.com/dryvist/splunk-homelab-alerts/commit/f342ccec8caa1812d30b423983be371f92c963ea))
+
 ## [0.13.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.12.0...v0.13.0) (2026-10-17)
 
 
