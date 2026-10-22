@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.15.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.14.0...v0.15.0) (2026-10-22)
+
+
+### Features
+
+* **alerts:** alert on homebox-backup unit failures and silence ([#45](https://github.com/dryvist/splunk-homelab-alerts/issues/45)) ([0ea5454](https://github.com/dryvist/splunk-homelab-alerts/commit/0ea54541e8ec7d7f3473353b6dafeefe5f9640eb))
+
 ## [0.14.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.13.0...v0.14.0) (2026-10-20)
 
 
