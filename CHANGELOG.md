@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.16.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.15.0...v0.16.0) (2026-10-23)
+
+
+### Features
+
+* **alerts:** add and enable UniFi Network CEF silence detector ([#47](https://github.com/dryvist/splunk-homelab-alerts/issues/47)) ([9835e09](https://github.com/dryvist/splunk-homelab-alerts/commit/9835e09d6efdf2d57816852764dc0bf1a24509d9))
+
 ## [0.15.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.14.0...v0.15.0) (2026-10-22)
 
 
