@@ -29,10 +29,15 @@ class CapacityAndRouterAlertsTest(unittest.TestCase):
     def test_router_digest_uses_shared_error_and_database_connection_macros(self):
         body = stanza(self.saved, "HomelabAlert - router database unreachable")
 
-        self.assertIn('search = index=os_ai sourcetype=syslog "router"', body)
+        self.assertIn("search = index=llm sourcetype=litellm:proxy", body)
         self.assertIn("`homelab_database_connection_terms`", body)
         self.assertIn("`homelab_error_terms`", body)
+        self.assertIn(
+            "where failure_count >= `homelab_router_database_failure_threshold`",
+            body,
+        )
         self.assertEqual(self.macros.count("[homelab_error_terms]"), 1)
+        self.assertIn("alert.suppress = 1\nalert.suppress.period = 30m", body)
         self.assertIn(
             "stats count AS failure_count dc(host) AS affected_router_count by _time",
             body,
@@ -51,6 +56,7 @@ class CapacityAndRouterAlertsTest(unittest.TestCase):
     def test_thresholds_and_database_terms_have_one_macro_definition_each(self):
         for name, expected in (
             ("homelab_database_connection_terms", "database OR postgresql"),
+            ("homelab_router_database_failure_threshold", "1"),
             ("homelab_object_store_fill_threshold_pct", "85"),
             ("homelab_zfs_arc_available_pct_threshold", "10"),
         ):
@@ -60,6 +66,8 @@ class CapacityAndRouterAlertsTest(unittest.TestCase):
             )
             self.assertEqual(len(matches), 1)
             self.assertIn(expected, matches[0])
+
+        self.assertIn("reach", stanza(self.macros, "homelab_database_connection_terms"))
 
     def test_new_detectors_inherit_the_apps_disabled_default(self):
         defaults = stanza(self.saved, "default")
