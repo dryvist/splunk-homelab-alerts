@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.17.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.16.0...v0.17.0) (2026-10-23)
+
+
+### Features
+
+* add capacity and router database alerts ([#49](https://github.com/dryvist/splunk-homelab-alerts/issues/49)) ([86b26e8](https://github.com/dryvist/splunk-homelab-alerts/commit/86b26e8fd4d9b2fd5584c4ddef390b68b04ad71c))
+
 ## [0.16.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.15.0...v0.16.0) (2026-10-23)
 
 
