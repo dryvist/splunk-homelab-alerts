@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.18.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.17.0...v0.18.0) (2026-10-24)
+
+
+### Features
+
+* **alerts:** enable storage capacity and database alerts ([#52](https://github.com/dryvist/splunk-homelab-alerts/issues/52)) ([8bcfa36](https://github.com/dryvist/splunk-homelab-alerts/commit/8bcfa361c832cb0dd06a2b645cffd4b30b84649f))
+
 ## [0.17.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.16.0...v0.17.0) (2026-10-23)
 
 
