@@ -69,7 +69,7 @@ class CapacityAndRouterAlertsTest(unittest.TestCase):
 
         self.assertIn("reach", stanza(self.macros, "homelab_database_connection_terms"))
 
-    def test_new_detectors_inherit_the_apps_disabled_default(self):
+    def test_new_detectors_override_the_apps_disabled_default(self):
         defaults = stanza(self.saved, "default")
         self.assertIn("\ndisabled = 1\n", defaults)
         for name in (
@@ -77,7 +77,7 @@ class CapacityAndRouterAlertsTest(unittest.TestCase):
             "HomelabAlert - router database unreachable",
             "HomelabAlert - ZFS ARC pressure",
         ):
-            self.assertNotIn("\ndisabled = 0\n", stanza(self.saved, name))
+            self.assertIn("\ndisabled = 0\n", stanza(self.saved, name))
 
 
 if __name__ == "__main__":
