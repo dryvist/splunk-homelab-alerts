@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.19.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.18.0...v0.19.0) (2026-10-25)
+
+
+### Features
+
+* alert on failed and silent backup units ([#54](https://github.com/dryvist/splunk-homelab-alerts/issues/54)) ([b7b5053](https://github.com/dryvist/splunk-homelab-alerts/commit/b7b50537e65977f497998b4f35645bfbac6e794f))
+
 ## [0.18.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.17.0...v0.18.0) (2026-10-24)
 
 
