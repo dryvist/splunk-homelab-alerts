@@ -21,8 +21,11 @@ class BackupUnitAlertsTest(unittest.TestCase):
         every = stanza(self.macros, "homelab_backup_units")
 
         self.assertIn('"pg-backup.service"', daily)
+        self.assertIn('"nautobot-backup@b2.service"', daily)
         self.assertIn("`homelab_daily_backup_units`", every)
         self.assertIn('"pgbackrest-backup@"', every)
+        self.assertIn('"nautobot-check@"', every)
+        self.assertNotIn("nautobot-check@", daily)
 
     def test_failure_alert_covers_every_backup_unit_per_host_and_is_enabled(self):
         body = stanza(self.saved, "HomelabAlert - backup unit failed")
