@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.19.0...v0.20.0) (2026-10-25)
+
+
+### Features
+
+* cover the Nautobot backup units in the backup alerts ([#56](https://github.com/dryvist/splunk-homelab-alerts/issues/56)) ([b41e67b](https://github.com/dryvist/splunk-homelab-alerts/commit/b41e67b61194a8a04bed3ad2d9f8229a1e16d1be))
+
 ## [0.19.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.18.0...v0.19.0) (2026-10-25)
 
 
