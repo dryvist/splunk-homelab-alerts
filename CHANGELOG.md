@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.20.1](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.20.0...v0.20.1) (2026-10-26)
+
+
+### Bug Fixes
+
+* **alerts:** enable the Homebox backup silence alert ([2347c1e](https://github.com/dryvist/splunk-homelab-alerts/commit/2347c1e34d686f3bce15f3a11537671957744267))
+* **alerts:** enable the Homebox backup silence alert ([#58](https://github.com/dryvist/splunk-homelab-alerts/issues/58)) ([5e8a451](https://github.com/dryvist/splunk-homelab-alerts/commit/5e8a451a56076392752c8d823f3002c334dcf8e1))
+
 ## [0.20.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.19.0...v0.20.0) (2026-10-25)
 
 
