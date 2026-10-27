@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.22.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.21.0...v0.22.0) (2026-10-27)
+
+
+### Features
+
+* **alerts:** add ZFS pool and drive SMART detectors ([#62](https://github.com/dryvist/splunk-homelab-alerts/issues/62)) ([6129668](https://github.com/dryvist/splunk-homelab-alerts/commit/6129668b36a59c55974c726d3545767f44754d4f))
+
 ## [0.21.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.20.1...v0.21.0) (2026-10-27)
 
 
