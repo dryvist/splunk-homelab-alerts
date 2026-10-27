@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.21.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.20.1...v0.21.0) (2026-10-27)
+
+
+### Features
+
+* **alerts:** cover every scheduled backup job and PVE/PBS outcomes ([#60](https://github.com/dryvist/splunk-homelab-alerts/issues/60)) ([05a686d](https://github.com/dryvist/splunk-homelab-alerts/commit/05a686d67e286bc65b2d5bfc0d104ec788d0a39b))
+
 ## [0.20.1](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.20.0...v0.20.1) (2026-10-26)
 
 
