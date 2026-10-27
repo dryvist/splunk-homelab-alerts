@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.23.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.22.0...v0.23.0) (2026-10-27)
+
+
+### Features
+
+* **alerts:** add macOS freeze and WindowServer watchdog alert ([#64](https://github.com/dryvist/splunk-homelab-alerts/issues/64)) ([a67c728](https://github.com/dryvist/splunk-homelab-alerts/commit/a67c72875dd1bd7b5819e225d6148297a6b18a90))
+
 ## [0.22.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.21.0...v0.22.0) (2026-10-27)
 
 
