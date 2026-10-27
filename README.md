@@ -103,6 +103,14 @@ class, model, and provider. It overrides the app defaults with scheduling and
 the Zammad action disabled, so it can be opened manually without dispatching an
 alert.
 
+## macOS alerts
+
+- `HomelabAlert - macOS freeze or WindowServer watchdog`: reports a Mac UI
+  freeze (`severity=FREEZE` in `index=mac_perf`), a WindowServer or other
+  diagnostic report in `index=os`, or a `synchronize timed out` unified-log
+  line. It runs every five minutes over the last six and suppresses repeat
+  hits per host for 15 minutes. The Zammad ticket is keyed per host.
+
 ## The `zammad` alert action
 
 `bin/zammad.py` opens a Zammad incident, or appends an article to the open one
