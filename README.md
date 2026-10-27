@@ -48,24 +48,30 @@ disabled = 0
 
 ## Backup and data-protection alerts
 
-- `HomelabAlert - backup unit failed`: checks daily and weekly systemd backup units every 15 minutes.
-- `HomelabAlert - nightly backup silent`: checks daily backup success within 26 hours at 10:15 UTC.
-- `HomelabAlert - weekly backup silent`: checks weekly backup success within 8 days at 10:20 UTC.
-- `HomelabAlert - backup vzdump task failed`: reports Proxmox VE (PVE) task errors every 15 minutes.
-- `HomelabAlert - backup vzdump task missed`: reports expected PVE nodes without a successful
-  vzdump task in 26 hours at 10:25 UTC.
-- `HomelabAlert - backup vzdump task stuck`: reports tasks without an end line after 4 hours at
-  10:30 UTC.
-- Proxmox Backup Server (PBS) status (`HomelabAlert - backup PBS status failed`): reports failures,
-  snapshots or daily prunes older than 26 hours, and weekly verification or garbage collection older
-  than 8 days. Checks every 15 minutes.
-- `HomelabAlert - backup PBS task failed`: reports PBS task errors every 15 minutes.
+- `HomelabAlert - backup unit failed`: checks daily and weekly systemd backup
+  units every 15 minutes.
+- `HomelabAlert - nightly backup silent`: checks daily backup success within 26
+  hours at 10:15 UTC.
+- `HomelabAlert - weekly backup silent`: checks weekly backup success within 8
+  days at 10:20 UTC.
+- `HomelabAlert - backup vzdump task failed`: reports Proxmox VE (PVE) task
+  errors every 15 minutes.
+- `HomelabAlert - backup vzdump task missed`: reports expected PVE nodes without
+  a successful vzdump task in 26 hours at 10:25 UTC.
+- `HomelabAlert - backup vzdump task stuck`: reports tasks without an end line
+  after 4 hours at 10:30 UTC.
+- Proxmox Backup Server (PBS) status (`HomelabAlert - backup PBS status
+  failed`): reports failures, snapshots or daily prunes older than 26 hours, and
+  weekly verification or garbage collection older than 8 days. Checks every 15
+  minutes.
+- `HomelabAlert - backup PBS task failed`: reports PBS task errors every 15
+  minutes.
 
 The vzdump expected-node macro is empty until nodes are configured, so the
-missed-run alert returns no rows by default. The PBS alerts require
-`pbs-status` and `pbs-task` events in the shared OS log indexes. Splunk cron uses the search head's
-configured time zone, which must be UTC. See
-[Splunk's alert scheduling docs](https://help.splunk.com/en/splunk-enterprise/alert-and-respond/alerting-manual/10.2/create-alerts/use-cron-expressions-for-alert-scheduling).
+missed-run alert returns no rows by default. The PBS alerts require `pbs-status`
+and `pbs-task` events in the shared OS log indexes. Splunk cron uses the search
+head's configured time zone, which must be UTC. See [Splunk's alert scheduling
+docs](https://help.splunk.com/en/splunk-enterprise/alert-and-respond/alerting-manual/10.2/create-alerts/use-cron-expressions-for-alert-scheduling).
 
 Everything else — the Zammad action, group, priority, correlation key,
 `allow_skew` — comes from `[default]`. Override any of them by setting the same
