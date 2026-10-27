@@ -14,26 +14,23 @@ def stanza(text, name):
 class HomeboxBackupAlertsTest(unittest.TestCase):
     def setUp(self):
         self.saved = (ROOT / "default/savedsearches.conf").read_text()
+        self.macros = (ROOT / "default/macros.conf").read_text()
 
-    def test_failure_alert_uses_the_shared_os_macro_and_is_enabled(self):
-        body = stanza(self.saved, "HomelabAlert - homebox backup failed")
+    def test_homebox_backup_and_check_units_use_shared_cadence_macros(self):
+        daily = stanza(self.macros, "homelab_daily_backup_units")
+        weekly = stanza(self.macros, "homelab_weekly_backup_units")
 
-        self.assertIn(
-            'search = `homelab_os_log_indexes` "homebox-backup@" "Failed with result"',
-            body,
-        )
-        self.assertIn("\ndisabled = 0\n", body)
-        self.assertIn("action.zammad.param.correlation_key = $name$ - $result.unit$", body)
+        self.assertIn('"homebox-backup@"', daily)
+        self.assertIn('"homebox-check@"', weekly)
 
-    def test_silence_alert_checks_26_hours_and_is_enabled(self):
-        body = stanza(self.saved, "HomelabAlert - homebox backup silent")
+    def test_generic_detectors_replace_duplicate_homebox_alerts(self):
+        failures = stanza(self.saved, "HomelabAlert - backup unit failed")
+        daily = stanza(self.saved, "HomelabAlert - nightly backup silent")
 
-        self.assertIn("`homelab_os_log_indexes`", body)
-        self.assertIn('"Deactivated successfully"', body)
-        self.assertIn("minutes_silent > 26*60", body)
-        self.assertIn("appendpipe", body)
-        self.assertIn("\ndisabled = 0\n", body)
-        self.assertNotIn("Ships disabled", body)
+        self.assertIn("homelab_backup_units", failures)
+        self.assertIn("homelab_daily_backup_units", daily)
+        self.assertNotIn("[HomelabAlert - homebox backup failed]", self.saved)
+        self.assertNotIn("[HomelabAlert - homebox backup silent]", self.saved)
 
 
 if __name__ == "__main__":
