@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.23.1](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.23.0...v0.23.1) (2026-10-28)
+
+
+### Bug Fixes
+
+* **alerts:** remove ZFS pool, drive SMART and macOS freeze detectors ([#66](https://github.com/dryvist/splunk-homelab-alerts/issues/66)) ([fbeacff](https://github.com/dryvist/splunk-homelab-alerts/commit/fbeacff322bd36e379bf2bf0a8ae1fa3db17e204))
+
 ## [0.23.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.22.0...v0.23.0) (2026-10-27)
 
 
