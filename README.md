@@ -79,19 +79,11 @@ key in the stanza; the stanza wins.
 
 ## Storage alerts
 
-- `HomelabAlert - ZFS pool fill warning`, `HomelabAlert - ZFS pool fill high`,
-  and `HomelabAlert - ZFS pool fill critical`: report the latest pool capacity
-  in the 70-80%, 80-90%, and 90%+ bands, with severities 3, 4, and 5. Only one
-  band fires per pool.
+- `HomelabAlert - ZFS pool fill warning`: reports the latest pool capacity in
+  the 70-80% band, with severity 3.
 - `HomelabAlert - ZFS pool days to full`: fits a linear trend to seven days of
   free space and reports a projected fill under 30 days; flat or growing free
   space is skipped.
-- `HomelabAlert - ZFS pool health`: reports any pool state other than `ONLINE`
-  or a nonzero error count from the latest scan.
-- `HomelabAlert - drive SMART unhealthy`: reports a SMART health value of zero.
-- `HomelabAlert - drive SMART attributes rising`: reports pending-sector,
-  reallocated-sector, or offline-uncorrectable raw counts that are positive and
-  higher than the value from 24 hours earlier.
 
 Detectors live in `ansible-splunk`'s `homelab_alerts` app today. They migrate
 here one at a time. The app default disables searches; a detector stanza
