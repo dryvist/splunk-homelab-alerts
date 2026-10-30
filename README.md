@@ -60,6 +60,9 @@ disabled = 0
   a successful vzdump task in 26 hours at 10:25 UTC.
 - `HomelabAlert - backup vzdump task stuck`: reports tasks without an end line
   after 4 hours at 10:30 UTC.
+- `HomelabAlert - backup vzdump guest stalled`: reports a guest whose vzdump
+  backup started more than 45 minutes ago with no finish or failure line from
+  the same host. Checks every 15 minutes.
 - Proxmox Backup Server (PBS) status (`HomelabAlert - backup PBS status
   failed`): reports failures, snapshots or daily prunes older than 26 hours, and
   weekly verification or garbage collection older than 8 days. Checks every 15
