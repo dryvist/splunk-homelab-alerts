@@ -1,3 +1,4 @@
+import fnmatch
 import re
 import unittest
 from pathlib import Path
@@ -8,9 +9,21 @@ BACKUP_DETECTORS = (
     "HomelabAlert - backup vzdump task failed",
     "HomelabAlert - backup vzdump task missed",
     "HomelabAlert - backup vzdump task stuck",
+    "HomelabAlert - backup vzdump guest stalled",
     "HomelabAlert - backup PBS status failed",
     "HomelabAlert - backup PBS task failed",
 )
+GUEST_STALL = "HomelabAlert - backup vzdump guest stalled"
+# Job-level lines from the PVE scheduler and vzdump, as the OS log index holds them.
+PVE_LINES = {
+    "start_110020": "<30>Oct 30 06:01:11 pve-w5900 pvescheduler[4059940]: INFO: Starting Backup of VM 110020 (lxc)",
+    "finish_110020": "<30>Oct 30 06:01:18 pve-w5900 pvescheduler[4059940]: INFO: Finished Backup of VM 110020 (00:00:07)",
+    "start_505010": "<30>Oct 30 06:03:11 pve-w5900 pvescheduler[4059940]: INFO: Starting Backup of VM 505010 (lxc)",
+    "lock_wait": "<30>Oct 30 06:43:12 pve-w5900 pvescheduler[4100245]: INFO: trying to get global lock - waiting...",
+    "lock_timeout": "<27>Oct 30 09:43:12 pve-w5900 pvescheduler[4100245]: ERROR: can't acquire lock '/var/run/vzdump.lock' - got timeout",
+    "job_finished": "<30>Oct 30 11:18:38 pve-w5900 vzdump[149446]: INFO: Backup job finished successfully",
+    "failed_505010": "<27>Oct 30 06:20:00 pve-w5900 vzdump[149446]: ERROR: Backup of VM 505010 failed - example reason",
+}
 
 
 def stanza(text, name):
@@ -63,6 +76,43 @@ class MaintenanceWindowAlertsTest(unittest.TestCase):
             "where len(`homelab_vzdump_expected_nodes`) > 0",
             stanza(self.saved, "HomelabAlert - backup vzdump task missed"),
         )
+
+    def test_guest_stall_alert_matches_the_hermes_name_and_its_schedule(self):
+        body = stanza(self.saved, GUEST_STALL)
+
+        self.assertTrue(fnmatch.fnmatchcase(GUEST_STALL, "HomelabAlert - *backup*"))
+        self.assertIn("\ndisabled = 0\n", body)
+        self.assertIn("dispatch.earliest_time = -12h", body)
+        self.assertIn("cron_schedule = */15 * * * *", body)
+        self.assertIn("allow_skew = 0", body)
+        self.assertIn("alert.suppress.fields = host,vmid", body)
+        self.assertIn("action.zammad.param.correlation_key = $name$ - $result.host$ - $result.vmid$", body)
+
+    def test_guest_stall_search_reads_start_finish_and_failure_lines(self):
+        body = stanza(self.saved, GUEST_STALL)
+
+        self.assertIn("`homelab_vzdump_guest_fields`", body)
+        for phrase in ("Starting Backup of VM", "Finished Backup of VM", "ERROR: Backup of VM"):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, body)
+        self.assertIn('relative_time(now(), "-45m")', body)
+        self.assertNotIn("transaction", body)
+
+    def test_guest_fields_macro_extracts_phase_and_vmid_from_pve_lines(self):
+        rex = must_search(r'rex field=_raw "([^"]+)"', stanza(self.macros, "homelab_vzdump_guest_fields")).group(1)
+        pattern = python_regex(rex)
+
+        def fields(raw):
+            found = re.search(pattern, raw)
+            return found.groupdict() if found else None
+
+        self.assertEqual(fields(PVE_LINES["start_505010"]), {"phase": "Starting", "vmid": "505010"})
+        self.assertEqual(fields(PVE_LINES["finish_110020"]), {"phase": "Finished", "vmid": "110020"})
+        self.assertEqual(fields(PVE_LINES["start_110020"]), {"phase": "Starting", "vmid": "110020"})
+        self.assertEqual(fields(PVE_LINES["failed_505010"]), {"phase": "ERROR:", "vmid": "505010"})
+        for key in ("lock_wait", "lock_timeout", "job_finished"):
+            with self.subTest(line=key):
+                self.assertIsNone(fields(PVE_LINES[key]))
 
 
 if __name__ == "__main__":
