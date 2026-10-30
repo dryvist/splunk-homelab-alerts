@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.24.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.23.1...v0.24.0) (2026-10-30)
+
+
+### Features
+
+* **alerts:** detect a vzdump guest backup that starts and never ends ([#68](https://github.com/dryvist/splunk-homelab-alerts/issues/68)) ([4a6af33](https://github.com/dryvist/splunk-homelab-alerts/commit/4a6af334f49709e34a4baa97cd3d73a18ed69c68))
+
 ## [0.23.1](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.23.0...v0.23.1) (2026-10-28)
 
 
