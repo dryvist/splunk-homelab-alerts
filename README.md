@@ -88,6 +88,14 @@ key in the stanza; the stanza wins.
   free space and reports a projected fill under 30 days; flat or growing free
   space is skipped.
 
+## Local agent alerts
+
+- `HomelabAlert - local agent privacy violation`: reports privacy violation
+  events, with severity 4.
+- `HomelabAlert - local agent canary failed`: reports canary errors.
+- `HomelabAlert - local agent silent`: reports more than 26 hours without an
+  event.
+
 Detectors live in `ansible-splunk`'s `homelab_alerts` app today. They migrate
 here one at a time. The app default disables searches; a detector stanza
 overrides it when the detector is intentionally enabled.
