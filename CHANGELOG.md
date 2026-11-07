@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.25.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.24.0...v0.25.0) (2026-11-07)
+
+
+### Features
+
+* **alerts:** add disabled local agent detectors ([#70](https://github.com/dryvist/splunk-homelab-alerts/issues/70)) ([fb3c2b3](https://github.com/dryvist/splunk-homelab-alerts/commit/fb3c2b321c06a95c097fef0ac4dfc9f025040e48))
+
 ## [0.24.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.23.1...v0.24.0) (2026-10-30)
 
 
