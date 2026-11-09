@@ -106,6 +106,12 @@ class, model, and provider. It overrides the app defaults with scheduling and
 the Zammad action disabled, so it can be opened manually without dispatching an
 alert.
 
+## Hermes reports
+
+- `hermes_cron_delivered_run_rate`: hourly per-job delivered-run rate for the
+  Hermes cron agents — runs started, completed, failed, delivered, delivery
+  failed and suppressed over 24 hours, with a TOTAL row.
+
 ## The `zammad` alert action
 
 `bin/zammad.py` opens a Zammad incident, or appends an article to the open one
