@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.26.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.25.0...v0.26.0) (2026-11-09)
+
+
+### Features
+
+* **agent:** opencode-local run j-474823be64861dda ([b5a2f36](https://github.com/dryvist/splunk-homelab-alerts/commit/b5a2f36a88f1b671daff968c9024f7ab75d77a62))
+* **hermes:** add the cron delivered-run rate search ([#73](https://github.com/dryvist/splunk-homelab-alerts/issues/73)) ([b5a2f36](https://github.com/dryvist/splunk-homelab-alerts/commit/b5a2f36a88f1b671daff968c9024f7ab75d77a62))
+
 ## [0.25.0](https://github.com/dryvist/splunk-homelab-alerts/compare/v0.24.0...v0.25.0) (2026-11-07)
 
 
