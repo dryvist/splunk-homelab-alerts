@@ -1,0 +1,29 @@
+<form version="1.1" theme="dark">
+  <label>ZFS ARC pressure</label>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="time" searchWhenChanged="true">
+      <label>Time range</label>
+      <default>
+        <earliest>-24h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="text" token="host" searchWhenChanged="true">
+      <label>Host</label>
+      <default>*</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <chart>
+        <title>ZFS ARC available %</title>
+        <search>
+          <query>| mstats latest(node_zfs_arc_memory_available_bytes) AS available latest(node_zfs_arc_memory_all_bytes) AS total WHERE index=host_metrics host="$host$" span=5m BY host | eval available_pct=round(100*available/total,1) | timechart max(available_pct) by host limit=10</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+      </chart>
+    </panel>
+  </row>
+</form>

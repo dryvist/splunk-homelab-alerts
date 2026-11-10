@@ -1,0 +1,29 @@
+<form version="1.1" theme="dark">
+  <label>OpenBao ingress errors</label>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="time" searchWhenChanged="true">
+      <label>Time range</label>
+      <default>
+        <earliest>-24h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="text" token="status" searchWhenChanged="true">
+      <label>Status</label>
+      <default>*</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <chart>
+        <title>Ingress error responses by status</title>
+        <search>
+          <query>index=proxy "openbao@file" | rex field=_raw "\"(?:GET|POST|PUT|DELETE|HEAD|OPTIONS|PATCH) \S+ HTTP/\S+\" (?&lt;status&gt;\d{3})" | search status="$status$" | timechart span=1m count by status limit=10</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+      </chart>
+    </panel>
+  </row>
+</form>

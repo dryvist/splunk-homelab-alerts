@@ -1,0 +1,50 @@
+<form version="1.1" theme="dark">
+  <label>Agent transcript secret residue</label>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="time" searchWhenChanged="true">
+      <label>Time range</label>
+      <default>
+        <earliest>-24h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="dropdown" token="index" searchWhenChanged="true">
+      <label>Index</label>
+      <choice value="*">All</choice>
+      <choice value="ai_usage">ai_usage</choice>
+      <choice value="claude">claude</choice>
+      <choice value="codex">codex</choice>
+      <default>*</default>
+    </input>
+    <input type="text" token="host" searchWhenChanged="true">
+      <label>Host</label>
+      <default>*</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <chart>
+        <title>Credential-pattern hits over time</title>
+        <search>
+          <query>index=$index$ host="$host$" | regex _raw="(dp\.(st|ct|pt|sa)\.[A-Za-z0-9_-]+|hv[sb]\.[A-Za-z0-9_-]{20,}|\bs\.[A-Za-z0-9]{24}\b|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|AKIA[0-9A-Z]{16}|xox[abpsr]-[A-Za-z0-9-]{10,}|Bearer\s+[A-Za-z0-9._~+/-]{20,}={0,2}|-----BEGIN ([A-Z]+ )?PRIVATE KEY-----)" | timechart span=5m count by index</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>Counts by index, sourcetype and host</title>
+        <search>
+          <query>index=$index$ host="$host$" | regex _raw="(dp\.(st|ct|pt|sa)\.[A-Za-z0-9_-]+|hv[sb]\.[A-Za-z0-9_-]{20,}|\bs\.[A-Za-z0-9]{24}\b|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|AKIA[0-9A-Z]{16}|xox[abpsr]-[A-Za-z0-9-]{10,}|Bearer\s+[A-Za-z0-9._~+/-]{20,}={0,2}|-----BEGIN ([A-Z]+ )?PRIVATE KEY-----)" | stats count by index, sourcetype, host</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="count">10</option>
+      </table>
+    </panel>
+  </row>
+</form>

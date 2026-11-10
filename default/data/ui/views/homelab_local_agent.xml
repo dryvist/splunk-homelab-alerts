@@ -1,0 +1,42 @@
+<form version="1.1" theme="dark">
+  <label>Homelab local agent signals</label>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="time" searchWhenChanged="true">
+      <label>Time range</label>
+      <default>
+        <earliest>-24h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="text" token="agent" searchWhenChanged="true">
+      <label>Agent</label>
+      <default>*</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <chart>
+        <title>Local agent events by status</title>
+        <search>
+          <query>index=ai_usage sourcetype="otel:log" "resource.attributes.service.name"="local-agent" 'attributes.agent'="$agent$" | timechart span=5m count by attributes.status limit=10</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <chart>
+        <title>Local agent events by agent</title>
+        <search>
+          <query>index=ai_usage sourcetype="otel:log" "resource.attributes.service.name"="local-agent" 'attributes.agent'="$agent$" | timechart span=5m count by attributes.agent limit=10</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+      </chart>
+    </panel>
+  </row>
+</form>

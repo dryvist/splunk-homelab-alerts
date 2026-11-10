@@ -1,0 +1,29 @@
+<form version="1.1" theme="dark">
+  <label>GitHub Actions runners</label>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="time" searchWhenChanged="true">
+      <label>Time range</label>
+      <default>
+        <earliest>-24h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="text" token="status" searchWhenChanged="true">
+      <label>Status</label>
+      <default>*</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <chart>
+        <title>Known vs online runners</title>
+        <search>
+          <query>index=github_actions sourcetype="github:runner" status="$status$" | timechart span=5m dc(eval(if(status="online", runner_id, null()))) AS online_runners, dc(runner_id) AS known_runners</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+      </chart>
+    </panel>
+  </row>
+</form>

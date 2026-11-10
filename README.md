@@ -80,6 +80,27 @@ Everything else — the Zammad action, group, priority, correlation key,
 `allow_skew` — comes from `[default]`. Override any of them by setting the same
 key in the stanza; the stanza wins.
 
+## Dashboard links
+
+Every alerting stanza's message (`action.zammad.param.message`) carries a
+dashboard link to a view in `default/data/ui/views/`. The link's
+`form.time.earliest` and `form.time.latest` equal the stanza's
+`dispatch.earliest_time` and `dispatch.latest_time`, so the dashboard always
+covers the alert window, and its remaining form tokens select the alerting
+entity — `$result.<field>$` for the field the search splits by, or a literal
+scope such as `form.index=unifi` for a whole-index detector. `bin/zammad.py`
+absolutizes the app-relative path with the Splunk Web origin of the payload's
+`results_link`. `tests/test_dashboard_links.py` fails when an alerting stanza
+has no dashboard link, links a view the app does not package, or drops the
+window or entity tokens.
+
+## Ansible converge alerts
+
+- `HomelabAlert - host unreachable in scheduled Ansible converges`: fires per
+  host when the host was unreachable in 2 or more converge runs in the last 26
+  hours, throttled 24 hours per host. It arrives disabled like every new
+  detector and is enabled in its own reviewed change.
+
 ## Storage alerts
 
 - `HomelabAlert - ZFS pool fill warning`: reports the latest pool capacity in
@@ -167,6 +188,7 @@ default/app.conf                     app registration
 default/alert_actions.conf           [zammad] action contract
 default/savedsearches.conf           [default] delivery block
 default/data/ui/alerts/zammad.html   alert-action setup UI
+default/data/ui/views/               signal dashboards linked from alert messages
 default/macros.conf                  shared search macros
 bin/zammad.py                        the handler (stdlib only)
 metadata/default.meta                exports the action to system scope

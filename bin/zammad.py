@@ -64,6 +64,23 @@ def get_password(server_uri, session_key, app):
     raise RuntimeError("no %s/%s credential in storage/passwords" % (REALM, USERNAME))
 
 
+def web_link(message, results_link):
+    """Absolutize an app-relative dashboard path against the Splunk Web origin.
+
+    Splunk substitutes the $result.*$ tokens in param values but ships no
+    web-base token of its own; results_link already carries scheme://host of
+    Splunk Web, so it is the one origin the payload guarantees. A message that
+    is not an absolute path, or a payload without results_link, is delivered
+    unchanged.
+    """
+    if not message.startswith("/"):
+        return message
+    parts = urllib.parse.urlsplit(results_link or "")
+    if not (parts.scheme and parts.netloc):
+        return message
+    return "%s://%s%s" % (parts.scheme, parts.netloc, message)
+
+
 def article(payload, cfg):
     """The note body. Identical whether it opens a ticket or appends to one."""
     result = payload.get("result", {}) or {}
@@ -71,6 +88,9 @@ def article(payload, cfg):
         "Splunk saved search: %s" % payload.get("search_name", "?"),
         "Result count: %s" % payload.get("result_count", "?"),
     ]
+    message = (cfg.get("message") or "").strip()
+    if message:
+        lines.append(web_link(message, payload.get("results_link", "")))
     if payload.get("results_link"):
         lines.append("Results: %s" % payload["results_link"])
     if result:
@@ -162,6 +182,27 @@ def selftest():
     # rendered query carries exactly the two delimiting quotes, no more.
     hostile = 'a" OR state.name:closed OR title:"b'
     assert ('title:"%s"' % hostile.replace('"', "")).count('"') == 2
+
+    # The message param renders into the article; an app-relative dashboard
+    # path is absolutized with the Splunk Web origin from results_link.
+    linked = dict(
+        payload,
+        configuration={
+            "message": "/app/splunk-homelab-alerts/homelab_ansible?form.host=node-a"
+        },
+    )
+    note = article(linked, linked["configuration"])
+    assert (
+        "https://example.invalid/app/splunk-homelab-alerts/homelab_ansible"
+        "?form.host=node-a" in note["body"]
+    ), note
+
+    # A payload without results_link still delivers the relative path, and a
+    # message that is not an absolute path is delivered unchanged.
+    bare = {"search_name": "x", "configuration": {"message": "/app/app/view"}}
+    assert "/app/app/view" in article(bare, bare["configuration"])["body"]
+    plain = dict(payload, configuration={"message": "already absolute"})
+    assert "already absolute" in article(plain, plain["configuration"])["body"]
 
     # A payload with neither key nor search_name is an error, not a blank title.
     try:

@@ -1,0 +1,65 @@
+<form version="1.1" theme="dark">
+  <label>Homelab index silence</label>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="time" searchWhenChanged="true">
+      <label>Time range</label>
+      <default>
+        <earliest>-24h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="dropdown" token="index" searchWhenChanged="true">
+      <label>Index</label>
+      <choice value="*">All</choice>
+      <choice value="ai_usage">ai_usage</choice>
+      <choice value="claude">claude</choice>
+      <choice value="cribl_internal">cribl_internal</choice>
+      <choice value="codex">codex</choice>
+      <choice value="dns">dns</choice>
+      <choice value="firewall">firewall</choice>
+      <choice value="gemini">gemini</choice>
+      <choice value="hardware">hardware</choice>
+      <choice value="hermes">hermes</choice>
+      <choice value="honeypot">honeypot</choice>
+      <choice value="netflow">netflow</choice>
+      <choice value="openai">openai</choice>
+      <choice value="openbao_audit">openbao_audit</choice>
+      <choice value="os">os</choice>
+      <choice value="otel_traces">otel_traces</choice>
+      <choice value="proxy">proxy</choice>
+      <choice value="unifi">unifi</choice>
+      <choice value="vscode">vscode</choice>
+      <default>*</default>
+    </input>
+    <input type="text" token="host" searchWhenChanged="true">
+      <label>Host</label>
+      <default>*</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <chart>
+        <title>Events over time</title>
+        <search>
+          <query>index=$index$ host="$host$" | timechart span=5m count</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <chart>
+        <title>Events by host over time</title>
+        <search>
+          <query>index=$index$ host="$host$" | timechart span=15m count by host limit=10</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+      </chart>
+    </panel>
+  </row>
+</form>
