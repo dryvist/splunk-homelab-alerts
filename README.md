@@ -80,6 +80,27 @@ Everything else — the Zammad action, group, priority, correlation key,
 `allow_skew` — comes from `[default]`. Override any of them by setting the same
 key in the stanza; the stanza wins.
 
+## Dashboard links
+
+An alerting stanza's message (`action.zammad.param.message`) carries a
+dashboard link to a view in `default/data/ui/views/`. The link's
+`form.time.earliest` and `form.time.latest` equal the stanza's
+`dispatch.earliest_time` and `dispatch.latest_time`, so the dashboard always
+covers the alert window, and its remaining form tokens select the alerting
+entity — `$result.<field>$` for the field the search splits by. `bin/zammad.py`
+absolutizes the app-relative path with the Splunk Web origin of the payload's
+`results_link`.
+
+## MLX cluster alerts
+
+- `HomelabAlert - MLX cluster guard hold or refusal`: reports cluster-schedule
+  guard holds and join refusals from `index=llm sourcetype="mlx:cluster"` every
+  15 minutes over a 20-minute window, one ticket per host and reason, throttled
+  6 hours. Its message names the host, guard, decision, reason and count, notes
+  that no one should join the cluster by hand, and links the
+  `homelab_mlx_cluster` dashboard. It arrives disabled like every new detector
+  and is enabled in its own reviewed change.
+
 ## Storage alerts
 
 - `HomelabAlert - ZFS pool fill warning`: reports the latest pool capacity in
@@ -167,6 +188,7 @@ default/app.conf                     app registration
 default/alert_actions.conf           [zammad] action contract
 default/savedsearches.conf           [default] delivery block
 default/data/ui/alerts/zammad.html   alert-action setup UI
+default/data/ui/views/               dashboards linked from alert messages
 default/macros.conf                  shared search macros
 bin/zammad.py                        the handler (stdlib only)
 metadata/default.meta                exports the action to system scope
