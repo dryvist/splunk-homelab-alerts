@@ -20,8 +20,15 @@ ROOT = Path(__file__).resolve().parents[1]
 ALERT = "HomelabAlert - MLX cluster guard hold or refusal"
 VIEW = "homelab_mlx_cluster"
 BASE_FILTER = (
-    'index=llm sourcetype="mlx:cluster" '
-    '("cluster-schedule: guard=" "decision=hold") OR "REFUSE reason="'
+    'index=llm sourcetype="mlx:cluster"'
+)
+ALERT_FILTER = (
+    BASE_FILTER
+    + ' ("cluster-schedule: guard=" "decision=hold") OR "REFUSE reason="'
+)
+HOST_FILTERED_BRANCHES = (
+    '("cluster-schedule: guard=" "decision=hold" host="$host$") '
+    'OR ("REFUSE reason=" host="$host$")'
 )
 
 
@@ -38,12 +45,12 @@ class MlxClusterGuardAlertTest(unittest.TestCase):
         ).group(1)
         return re.search(r"/app/splunk-homelab-alerts/(\S+)", message).group(1)
 
-    def test_search_counts_guard_holds_and_refusals_by_host_and_guard(self):
-        self.assertIn("search = %s" % BASE_FILTER, self.alert)
+    def test_search_counts_guard_holds_and_refusals_by_host_guard_and_reason(self):
+        self.assertIn("search = %s" % ALERT_FILTER, self.alert)
         self.assertIn("`homelab_mlx_cluster_fields`", self.alert)
         self.assertIn(
-            "stats count, latest(decision) AS decision, latest(reason) AS reason, "
-            "latest(_time) AS latest_time BY host, guard",
+            "stats count, latest(decision) AS decision, latest(_time) AS latest_time "
+            "BY host, guard, reason",
             self.alert,
         )
         self.assertIn("| table host, guard, decision, reason, count, latest_time", self.alert)
@@ -124,9 +131,10 @@ class MlxClusterGuardAlertTest(unittest.TestCase):
         searches = list(root.iter("search"))
         self.assertEqual(len(searches), 2, self.view_path.name)
         for search in searches:
-            self.assertIn(BASE_FILTER, search.find("query").text)
-            self.assertIn("`homelab_mlx_cluster_fields`", search.find("query").text)
-            self.assertIn('host="$host$"', search.find("query").text)
+            query = search.find("query").text
+            self.assertIn(BASE_FILTER + " " + HOST_FILTERED_BRANCHES, query)
+            self.assertEqual(query.count('host="$host$"'), 2)
+            self.assertIn("`homelab_mlx_cluster_fields`", query)
             self.assertEqual(search.find("earliest").text, "$time.earliest$")
             self.assertEqual(search.find("latest").text, "$time.latest$")
         tags = {element.tag for element in root.iter() if element.tag in ("chart", "table")}

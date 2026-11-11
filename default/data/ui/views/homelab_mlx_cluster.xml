@@ -18,7 +18,7 @@
       <chart>
         <title>Guard holds and refusals by guard and reason</title>
         <search>
-          <query>index=llm sourcetype="mlx:cluster" ("cluster-schedule: guard=" "decision=hold") OR "REFUSE reason=" host="$host$" | `homelab_mlx_cluster_fields` | eval series=decision." / ".guard." / ".reason | timechart span=5m count by series limit=10</query>
+          <query>index=llm sourcetype="mlx:cluster" ("cluster-schedule: guard=" "decision=hold" host="$host$") OR ("REFUSE reason=" host="$host$") | `homelab_mlx_cluster_fields` | eval series=decision." / ".guard." / ".reason | timechart span=5m count by series limit=10</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -31,7 +31,7 @@
       <table>
         <title>Latest guard lines</title>
         <search>
-          <query>index=llm sourcetype="mlx:cluster" ("cluster-schedule: guard=" "decision=hold") OR "REFUSE reason=" host="$host$" | `homelab_mlx_cluster_fields` | table _time, host, guard, decision, reason | sort 0 -_time</query>
+          <query>index=llm sourcetype="mlx:cluster" ("cluster-schedule: guard=" "decision=hold" host="$host$") OR ("REFUSE reason=" host="$host$") | `homelab_mlx_cluster_fields` | table _time, host, guard, decision, reason | sort 0 -_time</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
